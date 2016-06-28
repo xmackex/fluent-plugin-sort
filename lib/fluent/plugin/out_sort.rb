@@ -21,6 +21,11 @@ module Fluent
 
     include HandleTagNameMixin
 
+    # Define `router` method to support v0.10.57 or earlier
+    unless method_defined?(:router)
+      define_method("router") { Fluent::Engine }
+    end
+
     config_param :sort_key, :default => :time do |value|
       case value
       when "time"
@@ -40,7 +45,7 @@ module Fluent
     def write(chunk)
       messages = sort_messages(chunk.to_enum(:msgpack_each))
       messages.each do |tag, time, record|
-        Engine.emit(tag, time, record)
+        router.emit(tag, time, record)
       end
     end
 
