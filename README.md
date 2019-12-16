@@ -16,7 +16,8 @@ some messages but messages are delayed a bit.
 
 ## Install
 
-    % gem install fluent-plugin-sort
+    % gem install --no-document specific_install
+    % gem specific_install https://github.com/xmackex/fluent-plugin-sort.git
 
 ## Usage
 
